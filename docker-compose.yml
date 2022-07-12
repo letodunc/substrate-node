@@ -1,0 +1,17 @@
+version: "3.2"
+
+services:
+  dev:
+    container_name: ld-node
+    image: paritytech/ci-linux:staging
+    working_dir: /var/www/ld-node
+    ports:
+      - "9944:9944"
+    environment:
+      - CARGO_HOME=/var/www/ld-node/.cargo
+    volumes:
+      - .:/var/www/ld-node
+      - type: bind
+        source: ./.local
+        target: /root/.local
+    command: bash -c "cargo build --release && ./target/release/ld-node --dev --ws-external"
