@@ -47,6 +47,7 @@ pub use sp_runtime::{Perbill, Permill};
 pub use pallet_template;
 pub use pallet_housing_fund;
 pub use pallet_roles;
+// flag add pallet use
 
 /// An index to a block.
 pub type BlockNumber = u32;
@@ -251,6 +252,7 @@ impl pallet_balances::Config for Runtime {
 }
 
 impl pallet_transaction_payment::Config for Runtime {
+	type Event = Event;
 	type OnChargeTransaction = CurrencyAdapter<Balances, ()>;
 	type OperationalFeeMultiplier = ConstU8<5>;
 	type WeightToFee = IdentityFee<Balance>;
@@ -299,6 +301,8 @@ impl pallet_housing_fund::Config for Runtime {
 	type MaxInvestorPerHouse = MaxInvestorPerHouse;
 }
 
+// flag add pallet config
+
 // Create the runtime by composing the FRAME pallets that were previously configured.
 construct_runtime!(
 	pub enum Runtime where
@@ -318,6 +322,7 @@ construct_runtime!(
 		TemplateModule: pallet_template,
 		RoleModule: pallet_roles,
 		HousingFundModule: pallet_housing_fund,
+		// flag add pallet runtime
 	}
 );
 
@@ -365,6 +370,7 @@ mod benches {
 		[pallet_template, TemplateModule]
 		[pallet_roles, RoleModule]
 		[pallet_housing_fund, HousingFundModule]
+		// flag add pallet bench_macro
 	);
 }
 
@@ -548,6 +554,7 @@ impl_runtime_apis! {
 			add_benchmark!(params, batches, pallet_template, TemplateModule);
 			add_benchmark!(params, batches, pallet_roles, RoleModule);
 			add_benchmark!(params, batches, pallet_housing_fund, HousingFundModule);
+			// flag add pallet benchmark
 
 			Ok(batches)
 		}
